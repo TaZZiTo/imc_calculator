@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imc_calculator/core/app_colors.dart';
 import 'package:imc_calculator/core/text_styles.dart';
-import 'dart:io';
+
 
 class HeightSelector extends StatefulWidget {
   const HeightSelector({super.key});
@@ -23,7 +23,10 @@ class _HeightSelectorState extends State<HeightSelector> {
         ),
         child: Column(
           children: [
-            Text('ALTURA', style: TextStyles.bodyText,),
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text('ALTURA', style: TextStyles.bodyText,),
+            ),
             Text('${height.toStringAsFixed(0)} cm', style: TextStyle(
               color: Colors.white,
               fontSize: 38,
