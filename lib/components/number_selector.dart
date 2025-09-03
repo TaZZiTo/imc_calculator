@@ -6,12 +6,14 @@ import 'package:imc_calculator/core/text_styles.dart';
 class NumberSelector extends StatefulWidget {
   final String title;
   final Function() onIncrement;
+  final Function() onDecrement;
   final int value;
   const NumberSelector({
     super.key,
     required this.title,
     required this.value,
     required this.onIncrement,
+    required this.onDecrement,
   });
 
   @override
@@ -42,7 +44,9 @@ class _NumberSelectorState extends State<NumberSelector> {
               children: [
                 //Boton menos
                 FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    widget.onDecrement();
+                  },
                   shape: CircleBorder(),
                   backgroundColor: AppColors.primary,
                   child: Icon(Icons.remove, color: Colors.white),

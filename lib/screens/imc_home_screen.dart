@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:imc_calculator/components/gender_selector.dart';
 import 'package:imc_calculator/components/height_selector.dart';
 import 'package:imc_calculator/components/number_selector.dart';
+import 'package:imc_calculator/core/app_colors.dart';
+import 'package:imc_calculator/core/text_styles.dart';
 
 class ImcHomeScreen extends StatefulWidget {
   const ImcHomeScreen({super.key});
@@ -24,21 +26,58 @@ class _ImcHomeScreenState extends State<ImcHomeScreen> {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-          Expanded(child: NumberSelector(
-            title: 'PESO',value:selectedWeight, onIncrement: (){
-            setState(() {
-              selectedWeight++;
-            });
-          },)),
-          SizedBox(width: 16),
-          Expanded(child: NumberSelector(title: 'EDAD',value:selectedAge, onIncrement: (){
-            setState(() {
-              selectedAge++;
-            });
-          },)),  
-            ]
+              Expanded(
+                child: NumberSelector(
+                  title: 'PESO',
+                  value: selectedWeight,
+                  onIncrement: () {
+                    setState(() {
+                      selectedWeight++;
+                    });
+                  },
+                  onDecrement: () {
+                    setState(() {
+                      selectedWeight--;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: NumberSelector(
+                  title: 'EDAD',
+                  value: selectedAge,
+                  onIncrement: () {
+                    setState(() {
+                      selectedAge++;
+                    });
+                  },
+                  onDecrement: () {
+                    setState(() {
+                      selectedAge--;
+                    });
+                  },
+                ),
+              ),
+            ],
           ),
-        )
+        ),
+        Spacer(),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: SizedBox(
+            height: 60,
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                backgroundColor: WidgetStatePropertyAll(AppColors.primary),//Con este WidgetStatePropertyAll, le decimos que aplique los parametros a todos los estados del boton
+              ),
+              child: Text('CALCULAR', style: TextStyles.bodyText,),
+            ),
+          ),
+        ),
       ],
     );
   }
