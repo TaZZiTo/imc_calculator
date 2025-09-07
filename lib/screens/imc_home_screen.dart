@@ -4,6 +4,7 @@ import 'package:imc_calculator/components/height_selector.dart';
 import 'package:imc_calculator/components/number_selector.dart';
 import 'package:imc_calculator/core/app_colors.dart';
 import 'package:imc_calculator/core/text_styles.dart';
+import 'package:imc_calculator/screens/imc_results_screen.dart';
 
 class ImcHomeScreen extends StatefulWidget {
   const ImcHomeScreen({super.key});
@@ -15,6 +16,7 @@ class ImcHomeScreen extends StatefulWidget {
 class _ImcHomeScreenState extends State<ImcHomeScreen> {
   int selectedAge = 20;
   int selectedWeight = 60;
+  double selectedHeight = 150;
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +71,28 @@ class _ImcHomeScreenState extends State<ImcHomeScreen> {
             height: 60,
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ImcResultsScreen(
+                      weight: selectedWeight,
+                      height: selectedHeight,
+                    ),
+                  ),
+                );
+              },
               style: ButtonStyle(
-                shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-                backgroundColor: WidgetStatePropertyAll(AppColors.primary),//Con este WidgetStatePropertyAll, le decimos que aplique los parametros a todos los estados del boton
+                shape: WidgetStatePropertyAll(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                backgroundColor: WidgetStatePropertyAll(
+                  AppColors.primary,
+                ), //Con este WidgetStatePropertyAll, le decimos que aplique los parametros a todos los estados del boton
               ),
-              child: Text('CALCULAR', style: TextStyles.bodyText,),
+              child: Text('CALCULAR', style: TextStyles.bodyText),
             ),
           ),
         ),

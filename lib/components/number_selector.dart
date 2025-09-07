@@ -44,6 +44,7 @@ class _NumberSelectorState extends State<NumberSelector> {
               children: [
                 //Boton menos
                 FloatingActionButton(
+                  heroTag: null,
                   onPressed: () {
                     widget.onDecrement();
                   },
@@ -54,6 +55,7 @@ class _NumberSelectorState extends State<NumberSelector> {
                 SizedBox(width: 16),
                 //Boton Mas
                 FloatingActionButton(
+                  heroTag: null,
                   onPressed: () {
                     widget.onIncrement();
                   },
