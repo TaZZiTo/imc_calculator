@@ -30,6 +30,8 @@ class ImcResultsScreen extends StatelessWidget {
   }
 
   Padding bodyResult() {
+    double fixedHeight = height / 100;
+    double imcResult = weight / (fixedHeight * fixedHeight);
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -47,7 +49,12 @@ class ImcResultsScreen extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 32, right: 16, left: 16, bottom: 32),
+              padding: const EdgeInsets.only(
+                top: 32,
+                right: 16,
+                left: 16,
+                bottom: 32,
+              ),
               child: Container(
                 width: double.infinity,
                 //height: double.infinity, //No lo entiende la columna, hay que wrapear el contenedor en un Expanded
@@ -55,10 +62,54 @@ class ImcResultsScreen extends StatelessWidget {
                   color: AppColors.backgroundComponents,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Text('Prueba', style: TextStyles.bodyText,),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${getTextByImc(imcResult)}',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                        color: getColorByImc(imcResult),
+                      ),
+                    ),
+                    Text(
+                      imcResult.toStringAsFixed(2),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 76,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Descripción',
+                      style: TextStyle(fontSize: 28, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+            child: SizedBox(
+              height: 60,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  backgroundColor: WidgetStateProperty.all(AppColors.primary),
+                ),
+                child: Text('FINALIZAR', style: TextStyles.bodyText),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -69,5 +120,23 @@ class ImcResultsScreen extends StatelessWidget {
       title: Text('Resultado', style: TextStyles.bodyText),
       backgroundColor: AppColors.primary,
     );
+  }
+  
+  Color getColorByImc(double imcResult) {
+    return switch(imcResult){
+      <18.5 => Colors.blue, //IMC Bajo
+      <24.9 => Colors.green, // IMC Normal
+      <29.99 => Colors.orange, // Sobrepeso
+      _ => Colors.red, // Obesidad el _ es como un else
+    };
+  }
+  
+  String getTextByImc(double imcResult) {
+    return switch(imcResult){
+    <18.5 => 'Imc Bajo',
+    <24.9 => 'Imc Normal',
+    <29.99 => 'Sobrepeso',
+    _ => 'OBESIDAD',
+    };
   }
 }
