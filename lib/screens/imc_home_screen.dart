@@ -66,7 +66,7 @@ class _ImcHomeScreenState extends State<ImcHomeScreen> {
         ),
         Spacer(),
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.only(left: 16,right: 16, bottom: 24),
           child: SizedBox(
             height: 60,
             width: double.infinity,

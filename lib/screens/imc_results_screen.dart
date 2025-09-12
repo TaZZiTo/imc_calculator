@@ -25,11 +25,11 @@ class ImcResultsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: toolbarResult(),
-      body: bodyResult(),
+      body: bodyResult(context),
     );
   }
 
-  Padding bodyResult() {
+  Padding bodyResult(BuildContext context) {
     double fixedHeight = height / 100;
     double imcResult = weight / (fixedHeight * fixedHeight);
     return Padding(
@@ -67,7 +67,7 @@ class ImcResultsScreen extends StatelessWidget {
                   //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '${getTextByImc(imcResult)}',
+                      getTextByImc(imcResult),
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w600,
@@ -83,8 +83,8 @@ class ImcResultsScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Descripción',
-                      style: TextStyle(fontSize: 28, color: Colors.white),
+                      imcDescription(imcResult),
+                      style: TextStyle(fontSize: 28, color: Colors.white), textAlign: TextAlign.center,
                     ),
                   ],
                 ),
@@ -97,7 +97,9 @@ class ImcResultsScreen extends StatelessWidget {
               height: 60,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 style: ButtonStyle(
                   shape: WidgetStatePropertyAll(
                     RoundedRectangleBorder(
@@ -137,6 +139,15 @@ class ImcResultsScreen extends StatelessWidget {
     <24.9 => 'Imc Normal',
     <29.99 => 'Sobrepeso',
     _ => 'OBESIDAD',
+    };
+  }
+  
+  String imcDescription(double imcResult) {
+    return switch(imcResult){
+      <18.5 => 'Deberias intentar subir un poco de peso',
+      <24.9 => 'Estás en tu peso ideal',
+      <29.99 => 'Deberias empezar a cuidarte',
+      _ => 'El momento es ahora, la salud es lo primero',
     };
   }
 }
